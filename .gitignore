@@ -1,2 +1,0 @@
-deployments/**/current/*
-!deployments/**/current/.gitkeep
