@@ -47,9 +47,13 @@ deployment artifacts and downloaded image intact.
 | Application | URL |
 |---|---|
 | Confederation Shell | http://localhost:8080/ |
-| Class MFE | http://localhost:8080/class/ |
+| Class MFE (via Shell) | Loaded through Shell after login |
 
-The class build currently uses `/klassenwiederholung-mfe/` as its asset base;
+**MFE Access Control:** Direct access to MFE routes (e.g., `/class/`) is blocked
+and redirects to the Shell login page. MFEs are only accessible through the Shell
+after user authentication. This ensures that sensitive applications require login.
+
+**Module Federation Note:** The class build currently uses `/klassenwiederholung-mfe/` as its asset base;
 Nginx also serves the same files at that path. The current Shell build points
 its class Module Federation remote at GitHub Pages, not this local deployment.
 To test local federation, rebuild the Shell with its class remote URL set to
@@ -65,6 +69,8 @@ The resulting build artifacts (`dist/`) are copied into the corresponding deploy
 - Class → `deployments/class/current/`
 
 Nginx serves these directories as static applications. Updating frontend artifacts does not require rebuilding or restarting the Docker container.
+
+**MFE Access Control:** All MFE routes are protected by authentication. Direct access is blocked and redirects to the Shell login page. See [docs/MFE_ACCESS_CONTROL.md](docs/MFE_ACCESS_CONTROL.md) for details on protecting existing MFEs and adding new ones.
 
 ## Roadmap
 
@@ -96,7 +102,7 @@ Nginx serves these directories as static applications. Updating frontend artifac
 - [ ] Configure internal DNS
 - [ ] Enable HTTPS
 - [ ] Establish DEV and PROD environments
-- [ ] Introduce appropriate access control
+- [x] Introduce MFE access control (login required)
 
 ## Architectural Principles
 
