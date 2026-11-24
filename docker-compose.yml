@@ -8,8 +8,8 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
 
-      - ./deployments/shell/current:/usr/share/nginx/html:ro
+      - ./deployments/shell/current:/srv/shell:ro
 
-      - ./deployments/mfe-dashboard/current:/usr/share/nginx/html/mfe-dashboard:ro
+      - ./deployments/class/current:/srv/class:ro
 
     restart: unless-stopped
