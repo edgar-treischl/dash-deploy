@@ -1,7 +1,8 @@
 
 services:
   nginx:
-    image: nginx:alpine
+    #locally => image: nginx:alpine
+    image: ghcr.io/edgar-treischl/dash-deploy:latest
     container_name: confederation-local
     ports:
       - "8080:80"
