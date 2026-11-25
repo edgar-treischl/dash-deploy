@@ -1,2 +1,5 @@
 #deployments/**/current/*
 #!deployments/**/current/.gitkeep
+
+# Nginx configuration is auto-generated from mfes.json
+nginx/nginx.conf

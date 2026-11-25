@@ -1,5 +1,10 @@
 # MFE Access Control Guide
 
+> The Nginx configuration snippets and MFE setup steps below predate the
+> registry-based generator. For current setup instructions, see
+> [Adding an MFE](ADDING_AN_MFE.md). Redirects are not authentication:
+> MFE assets remain publicly accessible.
+
 ## Overview
 
 All Micro Frontend (MFE) routes are protected by authentication. Direct access to any MFE is blocked; users must authenticate through the Shell first.

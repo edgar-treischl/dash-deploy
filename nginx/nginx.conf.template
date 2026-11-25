@@ -1,0 +1,21 @@
+server {
+    listen 80;
+    server_name localhost;
+
+    root /srv/shell;
+    index index.html;
+    absolute_redirect off;
+
+    # Confederation Shell
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # === MFE Locations (auto-generated from mfes.json) ===
+__MFE_LOCATIONS__
+
+    # Return 404 for missing static assets
+    location ~* \.(js|mjs|css|json|png|jpg|svg|woff2?)$ {
+        try_files $uri =404;
+    }
+}

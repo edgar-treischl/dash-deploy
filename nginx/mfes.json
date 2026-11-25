@@ -1,0 +1,18 @@
+{
+  "mfes": [
+    {
+      "name": "class",
+      "path": "/class",
+      "displayName": "Klassenwiederholung",
+      "remoteEntry": "/klassenwiederholung-mfe/assets/remoteEntry.js",
+      "requiresLogin": true
+    },
+    {
+      "name": "academy",
+      "path": "/academy",
+      "displayName": "Academy",
+      "remoteEntry": "/academy-mfe/assets/remoteEntry.js",
+      "requiresLogin": true
+    }
+  ]
+}

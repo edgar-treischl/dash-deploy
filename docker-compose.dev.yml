@@ -1,0 +1,13 @@
+
+services:
+  nginx:
+    build: ./nginx
+    container_name: confederation-local
+    ports:
+      - "8080:80"
+    volumes:
+      - ./deployments/shell/current:/srv/shell:ro
+      - ./deployments/class/current:/srv/class:ro
+      - ./deployments/academy/current:/srv/academy:ro
+
+    restart: unless-stopped

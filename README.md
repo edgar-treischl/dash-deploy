@@ -14,7 +14,9 @@ Nginx serves the Shell and MFEs under a common domain, allowing the Shell to loa
 confederation-deployment/
 ├── docker-compose.yml
 ├── nginx/
-│   └── nginx.conf
+│   ├── mfes.json
+│   ├── nginx.conf.template
+│   └── generate-config.js
 ├── deployments/
 │   ├── shell/
 │   │   └── current/
@@ -42,7 +44,31 @@ make down
 `make down` stops and removes the containers and Compose network; it leaves the
 deployment artifacts and downloaded image intact.
 
+### Production deployment
+
+Use the standalone production Compose file to run the image published by CI:
+
+```bash
+docker compose -f docker-compose.prod.yml pull
+docker compose -f docker-compose.prod.yml up -d --no-build
+```
+
+The server does not build the image or need local deployment artifacts.
+The image contains the generated Nginx config and frontend artifacts.
+After registry or artifact changes, wait for CI to publish the new image,
+then run the commands above again. Authenticate with `docker login ghcr.io`
+if the package is private.
+
+Use `-f docker-compose.prod.yml` for production logs and shutdown too.
+This stack uses its own Compose project and port 8080; stop the local stack
+first if running production on the same host and port.
+
 ### Access applications
+
+After changing the MFE registry or Nginx template, run
+`docker compose up --build -d nginx` (or `make build-local`). Configuration is
+generated during image build, not on container restart.
+See [Adding an MFE](docs/ADDING_AN_MFE.md) for registration and deployment steps.
 
 | Application | URL |
 |---|---|
