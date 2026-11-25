@@ -11,7 +11,7 @@
       "name": "academy",
       "path": "/academy",
       "displayName": "Academy",
-      "remoteEntry": "/academy-mfe/assets/remoteEntry.js",
+      "remoteEntry": "/dash-academy/assets/remoteEntry.js",
       "requiresLogin": true
     }
   ]
