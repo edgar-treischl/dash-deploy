@@ -31,8 +31,8 @@ build-local:
 	@printf '  Class MFE: http://localhost:8080/class/\n'
 
 nginx-conf:
-	docker compose up --build -d nginx
-	docker compose exec -T nginx nginx -t
+	docker compose -f docker-compose.dev.yml up --build -d nginx
+	docker compose -f docker-compose.dev.yml exec -T nginx nginx -t
 
 logs:
 	docker compose logs -f nginx

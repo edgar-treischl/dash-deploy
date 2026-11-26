@@ -13,6 +13,8 @@ COPY deployments/shell/current/ /srv/shell/
 # Copy MFEs to paths expected by nginx.conf
 COPY deployments/class/current/ /srv/class/
 COPY deployments/academy/current/ /srv/academy/
+COPY deployments/zhv/current/ /srv/scp/
+
 
 
 RUN nginx -t

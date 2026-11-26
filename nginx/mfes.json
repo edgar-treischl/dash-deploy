@@ -8,6 +8,13 @@
       "requiresLogin": true
     },
     {
+      "name": "zhv",
+      "path": "/zhv",
+      "displayName": "ZHV",
+      "remoteEntry": "/dash-zhv/assets/remoteEntry.js",
+      "requiresLogin": true
+    },
+    {
       "name": "academy",
       "path": "/academy",
       "displayName": "Academy",
