@@ -2,7 +2,7 @@ import { t as __commonJSMin } from "./chunk-Bv4aU9fc.js";
 import { r as importShared } from "./_virtual___federation_fn_import-BkF5Dpbb.js";
 import { t as require_react } from "./react-C7l_3YM5.js";
 import { t as require_react_dom } from "./react-dom-D7VGQpMy.js";
-import { n as require_jsx_runtime, t as App } from "./App-ClXXmhEc.js";
+import { n as require_jsx_runtime, t as App } from "./App-B-P48I2w.js";
 //#region \0vite/modulepreload-polyfill.js
 (function polyfill() {
 	const relList = document.createElement("link").relList;

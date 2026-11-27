@@ -894,7 +894,7 @@ function Breadcrumb({ items }) {
 					},
 					children: item.label
 				})]
-			}, index))
+			}, item.id || `breadcrumb-${index}`))
 		})
 	});
 }
@@ -1125,14 +1125,17 @@ function SubmissionTable({ submissions, onViewSubmission, onEditSubmission, onEv
 function FormCallout({ title = "Hinweis", message = "Wichtige Information" }) {
 	const exampleData = [
 		{
+			id: "q1",
 			question: "Was zeigen die Daten?",
 			indicator: "Freitext"
 		},
 		{
+			id: "q2",
 			question: "Zielerreichung",
 			indicator: "Single Choice"
 		},
 		{
+			id: "q3",
 			question: "Begründung",
 			indicator: "u.a. Passgenauigkeit, Zeit, Personal"
 		}
@@ -1236,7 +1239,7 @@ function FormCallout({ title = "Hinweis", message = "Wichtige Information" }) {
 								},
 								children: row.indicator
 							})]
-						}, index)) })]
+						}, row.id)) })]
 					})
 				})
 			] })]
@@ -1389,7 +1392,7 @@ function ReviewField({ label, value, children }) {
 			flexDirection: "column",
 			gap: "0.5rem"
 		},
-		children: value.map((item, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		children: value.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			style: {
 				display: "flex",
 				alignItems: "center",
@@ -1402,7 +1405,7 @@ function ReviewField({ label, value, children }) {
 				},
 				children: "✓"
 			}), item]
-		}, i))
+		}, `item-${item}`))
 	}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 		className: "review-value-empty",
 		children: "(keine Angabe)"
@@ -2166,7 +2169,7 @@ function GoalsSummary({ goals, onEditGoal, onAddGoal, onDeleteGoal, mode = "edit
 						})
 					}, module.id))] })]
 				})]
-			}, index)),
+			}, goal.selectedGoal || `goal-${index}`)),
 			canEdit && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 				type: "button",
 				onClick: onAddGoal,
@@ -2391,6 +2394,91 @@ function ContractModal({ schoolName, schoolLead, samt, programRep, onClose, onSu
 	});
 }
 colors$1.textMuted, colors$1.textMuted, `${colors$1.borderLight}`, `${colors$1.borderLight}`, { ...formStyles.button_primary }, { ...formStyles.button_secondary };
+//#endregion
+//#region src/components/SignatureBlock.tsx
+await importShared("react");
+var SignatureBlock = ({ name, onChange }) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		style: { marginBottom: "2rem" },
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				style: { marginBottom: "1.5rem" },
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+					htmlFor: "signatureName",
+					style: {
+						display: "block",
+						marginBottom: "0.5rem",
+						fontWeight: "500",
+						color: "#212529",
+						fontSize: "0.95rem"
+					},
+					children: ["Unterschrift hinzufügen:", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						style: { color: "#dc3545" },
+						children: "*"
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+					id: "signatureName",
+					type: "text",
+					value: name,
+					onChange: (e) => onChange(e.target.value),
+					placeholder: "Bitte geben Sie Ihren Namen ein",
+					style: {
+						width: "100%",
+						padding: "0.65rem 0.75rem",
+						fontSize: "0.95rem",
+						border: "1px solid #dee2e6",
+						borderRadius: "4px",
+						fontFamily: "inherit",
+						transition: "border-color 0.2s",
+						boxSizing: "border-box"
+					}
+				})]
+			}),
+			name.trim() && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				style: {
+					border: "2px solid #dee2e6",
+					borderRadius: "6px",
+					padding: "2rem 1.5rem",
+					backgroundColor: "#f8f9fa",
+					textAlign: "center",
+					minHeight: "120px",
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center"
+				},
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					style: {
+						fontFamily: "Dancing Script, cursive",
+						fontSize: "3.5rem",
+						fontStyle: "italic",
+						color: "#000000",
+						fontWeight: "500",
+						letterSpacing: "0.5px",
+						lineHeight: "1.2"
+					},
+					children: name
+				})
+			}),
+			!name.trim() && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				style: {
+					border: "2px dashed #dee2e6",
+					borderRadius: "6px",
+					padding: "2rem 1.5rem",
+					backgroundColor: "#f8f9fa",
+					textAlign: "center",
+					minHeight: "120px",
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+					color: "#6c757d",
+					fontSize: "0.95rem",
+					fontStyle: "italic"
+				},
+				children: "Unterschrift wird hier angezeigt"
+			})
+		]
+	});
+};
 //#endregion
 //#region src/pages/SelectPage.tsx
 var MOCK_NEW_SUBMISSIONS = [
@@ -3553,6 +3641,7 @@ function FormEditor({ onNavigate, submissionId, parentView, showLoadDraft }) {
 	const [dataAccuracyConfirmed, setDataAccuracyConfirmed] = useState$4(false);
 	const [formSubmitted, setFormSubmitted] = useState$4(false);
 	const [feedbackText, setFeedbackText] = useState$4("");
+	const [signatureName, setSignatureName] = useState$4("");
 	const hydratedIdRef = useRef(null);
 	useLayoutEffect(() => {
 		if (!submissionId || !submission || submission.schulnummer !== submissionId) return;
@@ -4268,58 +4357,52 @@ function FormEditor({ onNavigate, submissionId, parentView, showLoadDraft }) {
 						return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 								style: formStyles.contractTitle,
-								children: "Die neue Zielvereinbarung nun einreichen:"
+								children: "Die neue Zielvereinbarung nun verbindlich einreichen:"
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								style: formStyles.contractPreview,
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-										style: {
-											marginTop: 0,
-											marginBottom: "1.5rem"
-										},
-										children: [
-											"Zwischen ",
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												style: formStyles.contractValue,
-												children: contractSchoolLead
-											}),
-											" als Schulleitung der",
-											" ",
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												style: formStyles.contractValue,
-												children: contractSchoolName
-											}),
-											"."
-										]
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-										style: {
-											marginTop: 0,
-											marginBottom: "1.5rem"
-										},
-										children: [
-											"Und dem ",
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												style: formStyles.contractValue,
-												children: contractSamt
-											}),
-											", vertreten durch",
-											" ",
-											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												style: formStyles.contractValue,
-												children: contractProgramRep
-											})
-										]
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										style: {
-											marginTop: 0,
-											marginBottom: "0rem"
-										},
-										children: "Die Zielvereinbarung wird verbindlich geschlossen."
-									})
-								]
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									style: {
+										marginTop: 0,
+										marginBottom: "1.5rem"
+									},
+									children: [
+										"Zwischen ",
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											style: formStyles.contractValue,
+											children: signatureName || contractSchoolLead
+										}),
+										" als Schulleitung der",
+										" ",
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											style: formStyles.contractValue,
+											children: contractSchoolName
+										}),
+										"."
+									]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									style: {
+										marginTop: 0,
+										marginBottom: "1.5rem"
+									},
+									children: [
+										"Und dem ",
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											style: formStyles.contractValue,
+											children: contractSamt
+										}),
+										", vertreten durch",
+										" ",
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											style: formStyles.contractValue,
+											children: contractProgramRep
+										})
+									]
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SignatureBlock, {
+								name: signatureName,
+								onChange: setSignatureName
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								style: {
@@ -4328,7 +4411,7 @@ function FormEditor({ onNavigate, submissionId, parentView, showLoadDraft }) {
 									marginBottom: "2rem",
 									fontStyle: "italic"
 								},
-								children: ["Zeitstempel: ", currentTime]
+								children: ["Zeitstempel der Einreichung: ", currentTime]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								style: {
@@ -4500,14 +4583,14 @@ function FormEditor({ onNavigate, submissionId, parentView, showLoadDraft }) {
 								currentStep < totalSteps - 1 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 									type: "button",
 									onClick: currentStep === 5 ? role === "schulamt" ? () => handleSendFeedback(feedbackText) : handleSubmitForm : handleNextStep,
-									disabled: currentStep === 5 && (role === "schulamt" ? !feedbackText.trim() : !contractConfirmed),
+									disabled: currentStep === 5 && (role === "schulamt" ? !feedbackText.trim() : !contractConfirmed || !signatureName.trim()),
 									style: {
 										...styles.button_secondary,
 										...currentStep === 5 ? {
 											...styles.button_primary,
-											opacity: (role === "schulamt" ? !feedbackText.trim() : !contractConfirmed) ? .6 : 1
+											opacity: (role === "schulamt" ? !feedbackText.trim() : !contractConfirmed || !signatureName.trim()) ? .6 : 1
 										} : {},
-										...currentStep === 5 && (role === "schulamt" ? !feedbackText.trim() : !contractConfirmed) ? {
+										...currentStep === 5 && (role === "schulamt" ? !feedbackText.trim() : !contractConfirmed || !signatureName.trim()) ? {
 											background: colors.disabled,
 											color: colors.textMuted,
 											cursor: "not-allowed",
@@ -4661,7 +4744,7 @@ function FormEvaluation({ evaluationDate, bilanzierungDate, uploadedFiles, onEva
 								paddingLeft: "1.25rem",
 								listStyle: "disc"
 							},
-							children: uploadedFiles.map((file, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+							children: uploadedFiles.map((file) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
 								style: {
 									display: "flex",
 									justifyContent: "space-between",
@@ -4677,7 +4760,7 @@ function FormEvaluation({ evaluationDate, bilanzierungDate, uploadedFiles, onEva
 									" KB)"
 								] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 									type: "button",
-									onClick: () => onFileRemove(index),
+									onClick: () => onFileRemove(uploadedFiles.indexOf(file)),
 									disabled,
 									style: {
 										background: "none",
@@ -4697,7 +4780,7 @@ function FormEvaluation({ evaluationDate, bilanzierungDate, uploadedFiles, onEva
 									},
 									children: "Entfernen"
 								})]
-							}, `${file.name}-${index}`))
+							}, `${file.name}-${file.size}`))
 						})]
 					})
 				]
@@ -31776,7 +31859,7 @@ function SchuleSubmissionView({ onNavigate }) {
 							borderRadius: "4px",
 							margin: 0
 						},
-						children: dataSources.map((source, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: source }, index))
+						children: dataSources.map((source) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: source }, source))
 					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						style: {
 							padding: "0.75rem",
@@ -32421,7 +32504,7 @@ function AufsichtSubmissionView({ schulnummer, onNavigate }) {
 							borderRadius: "4px",
 							margin: 0
 						},
-						children: dataSources.map((source, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: source }, index))
+						children: dataSources.map((source) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: source }, source))
 					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						style: {
 							padding: "0.75rem",

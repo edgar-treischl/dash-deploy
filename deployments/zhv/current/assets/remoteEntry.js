@@ -7,9 +7,9 @@ var exportSet = new Set([
 	"default",
 	"_export_sfc"
 ]);
-var moduleMap = { "./ScpApp": () => {
-	dynamicLoadingCss(["style-B1d-ERUM.css"], false, "./ScpApp");
-	return __federation_import("/dash-zhv/assets/__federation_expose_ScpApp-B1-tV5tE.js").then((module) => Object.keys(module).every((item) => exportSet.has(item)) ? () => module.default : () => module);
+var moduleMap = { "./ZhvApp": () => {
+	dynamicLoadingCss(["style-B1d-ERUM.css"], false, "./ZhvApp");
+	return __federation_import("/dash-zhv/assets/__federation_expose_ZhvApp-vsmrWHGJ.js").then((module) => Object.keys(module).every((item) => exportSet.has(item)) ? () => module.default : () => module);
 } };
 var seen = {};
 var dynamicLoadingCss = (cssFilePaths, dontAppendStylesToHead, exposeItemName) => {
