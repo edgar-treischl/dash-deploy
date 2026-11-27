@@ -9,5 +9,6 @@ services:
       - ./deployments/shell/current:/srv/shell:ro
       - ./deployments/class/current:/srv/class:ro
       - ./deployments/academy/current:/srv/academy:ro
+      - ./deployments/zhv/current:/srv/zhv:ro
 
     restart: unless-stopped
